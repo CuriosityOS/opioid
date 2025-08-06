@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Pill capsule shape -->
+  <g transform="rotate(45 256 256)">
+    <!-- Left half (darker) -->
+    <path d="M 156 256 Q 156 156, 256 156 L 256 356 Q 156 356, 156 256" fill="#FF6B6B"/>
+    <!-- Right half (lighter) -->
+    <path d="M 256 156 Q 356 156, 356 256 Q 356 356, 256 356 Z" fill="#FFE5E5"/>
+    <!-- Center dividing line -->
+    <line x1="256" y1="156" x2="256" y2="356" stroke="#FF5252" stroke-width="4"/>
+  </g>
+</svg>
