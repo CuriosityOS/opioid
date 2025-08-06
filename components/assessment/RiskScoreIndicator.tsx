@@ -13,9 +13,9 @@ export const RiskScoreIndicator = ({ score }: RiskScoreIndicatorProps) => {
   };
 
   const getRiskLevel = (score: number) => {
-    if (score < 30) return { text: 'Low Risk', icon: TrendingDown, color: 'text-green-600' };
-    if (score < 60) return { text: 'Moderate Risk', icon: AlertTriangle, color: 'text-yellow-600' };
-    return { text: 'High Risk', icon: TrendingUp, color: 'text-red-600' };
+    if (score < 30) return { text: 'Low Risk', icon: TrendingDown, color: 'text-green-600', bgColor: 'bg-green-500' };
+    if (score < 60) return { text: 'Moderate Risk', icon: AlertTriangle, color: 'text-yellow-600', bgColor: 'bg-yellow-500' };
+    return { text: 'High Risk', icon: TrendingUp, color: 'text-red-600', bgColor: 'bg-red-500' };
   };
 
   const risk = getRiskLevel(score);
@@ -66,9 +66,9 @@ export const RiskScoreIndicator = ({ score }: RiskScoreIndicatorProps) => {
             </div>
           </div>
           
-          <div className={`flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r ${getGradientColor(score)} bg-opacity-10`}>
-            <Icon className={`w-5 h-5 ${risk.color}`} />
-            <span className={`font-semibold ${risk.color}`}>{risk.text}</span>
+          <div className={`flex items-center gap-2 px-4 py-2 rounded-full ${risk.bgColor}`}>
+            <Icon className="w-5 h-5 text-white" />
+            <span className="font-semibold text-white">{risk.text}</span>
           </div>
         </div>
       </div>
