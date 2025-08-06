@@ -115,16 +115,6 @@ export default function HomePage() {
           <p className="text-sm text-gray-500 mt-1">Educational Purpose Only - Not Medical Advice</p>
         </div>
 
-        <Alert className="mb-8 border-yellow-200 bg-yellow-50">
-          <AlertTriangle className="h-5 w-5 text-yellow-600" />
-          <AlertTitle className="text-yellow-800">Important Medical Disclaimer</AlertTitle>
-          <AlertDescription className="text-yellow-700">
-            This tool provides educational assessments only and does NOT constitute medical advice, diagnosis, or treatment. 
-            Always consult qualified healthcare professionals for medical concerns. No doctor-patient relationship is established 
-            through use of this tool. Your data is processed transiently and never stored.
-          </AlertDescription>
-        </Alert>
-
         <div className="grid md:grid-cols-2 gap-8">
           <div className="space-y-6">
             <Card className="shadow-xl border-0 bg-white/80 backdrop-blur">
@@ -156,7 +146,7 @@ export default function HomePage() {
                     <span className="w-full border-t" />
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-2 text-gray-500">Or</span>
+                    <span className="bg-white px-2 text-gray-500">And</span>
                   </div>
                 </div>
 
@@ -265,15 +255,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="mt-12 text-center text-sm text-gray-500">
-          <p className="mb-2">
-            This tool is for educational purposes only. If you or someone you know is struggling with 
-            opioid addiction, please seek immediate professional help.
-          </p>
-          <p className="font-semibold">
-            National Helpline: 1-800-662-HELP (4357) | Available 24/7
-          </p>
-        </div>
       </div>
     </main>
   );
