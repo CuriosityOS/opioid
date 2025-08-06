@@ -64,11 +64,27 @@ Guidelines:
     }
 
     try {
+      // Clean the content - remove markdown code blocks if present
+      let cleanContent = content.trim();
+      
+      // Remove ```json or ``` markers if present
+      if (cleanContent.startsWith('```json')) {
+        cleanContent = cleanContent.substring(7);
+      } else if (cleanContent.startsWith('```')) {
+        cleanContent = cleanContent.substring(3);
+      }
+      
+      if (cleanContent.endsWith('```')) {
+        cleanContent = cleanContent.substring(0, cleanContent.length - 3);
+      }
+      
+      cleanContent = cleanContent.trim();
+      
       // Parse the JSON response from the AI
-      const assessmentData = JSON.parse(content);
+      const assessmentData = JSON.parse(cleanContent);
       
       // Validate the structure
-      if (!assessmentData.riskScore || !assessmentData.summary) {
+      if (typeof assessmentData.riskScore !== 'number' || !assessmentData.summary) {
         throw new Error('Invalid response structure');
       }
       
@@ -86,7 +102,7 @@ Guidelines:
       });
     } catch (parseError) {
       console.error('Error parsing AI response:', parseError);
-      console.error('Raw content:', content);
+      console.error('Raw content (first 500 chars):', content.substring(0, 500));
       
       // Fallback response if parsing fails
       return new Response(JSON.stringify({
