@@ -6,10 +6,12 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Upload, AlertTriangle, Send, FileText, Loader2, Shield, Heart } from 'lucide-react';
+import { AssessmentResults } from '@/components/assessment/AssessmentResults';
+import { AssessmentResult } from '@/types/assessment';
 
 export default function HomePage() {
   const [textInput, setTextInput] = useState('');
-  const [assessment, setAssessment] = useState('');
+  const [assessmentData, setAssessmentData] = useState<AssessmentResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isParsing, setIsParsing] = useState(false);
@@ -68,7 +70,7 @@ export default function HomePage() {
 
     setIsLoading(true);
     setError(null);
-    setAssessment('');
+    setAssessmentData(null);
 
     try {
       const response = await fetch('/api/assess', {
@@ -77,20 +79,12 @@ export default function HomePage() {
         body: JSON.stringify({ text: textInput }),
       });
 
-      if (!response.ok || !response.body) {
+      if (!response.ok) {
         throw new Error(`API error: ${response.statusText}`);
       }
       
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) break;
-        
-        const chunk = decoder.decode(value);
-        setAssessment(prev => prev + chunk);
-      }
+      const data = await response.json();
+      setAssessmentData(data);
 
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred.');
@@ -214,31 +208,29 @@ export default function HomePage() {
           </div>
 
           <div className="space-y-6">
-            <Card className="shadow-xl border-0 bg-white/80 backdrop-blur min-h-[400px]">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Heart className="w-5 h-5 mr-2 text-purple-600" />
-                  Assessment Results
-                </CardTitle>
-                <CardDescription>
-                  AI-generated risk assessment analysis
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {assessment ? (
-                  <div className="prose prose-sm max-w-none">
-                    <div className="whitespace-pre-wrap text-gray-700">{assessment}</div>
-                  </div>
-                ) : (
+            {assessmentData ? (
+              <AssessmentResults data={assessmentData} />
+            ) : (
+              <Card className="shadow-xl border-0 bg-white/80 backdrop-blur min-h-[400px]">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Heart className="w-5 h-5 mr-2 text-purple-600" />
+                    Assessment Results
+                  </CardTitle>
+                  <CardDescription>
+                    AI-generated risk assessment analysis
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
                   <div className="flex flex-col items-center justify-center h-64 text-gray-400">
                     <Shield className="w-16 h-16 mb-4" />
                     <p className="text-center">
                       Assessment results will appear here after analysis
                     </p>
                   </div>
-                )}
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            )}
 
             <Card className="border-blue-200 bg-blue-50/50 backdrop-blur">
               <CardHeader>
