@@ -1,19 +1,18 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Activity, Brain, FileText, AlertTriangle } from 'lucide-react';
+import { Activity, Brain, FileText, AlertTriangle, AlertCircle } from 'lucide-react';
 import { AssessmentResult } from '@/types/assessment';
 import { RiskScoreIndicator } from './RiskScoreIndicator';
 import { FactorCard } from './FactorCard';
 
 interface AssessmentResultsProps {
   data: AssessmentResult;
-  isStreaming?: boolean;
 }
 
-export const AssessmentResults = ({ data, isStreaming = false }: AssessmentResultsProps) => {
+export const AssessmentResults = ({ data }: AssessmentResultsProps) => {
   const getConfidenceColor = (confidence: string) => {
     switch (confidence) {
       case 'High': return 'bg-green-100 text-green-800 border-green-300';
